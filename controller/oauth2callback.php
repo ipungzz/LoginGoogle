@@ -2,8 +2,8 @@
 require '../controller/connection.php'; // Pastikan file ini berisi koneksi database
 require_once '../vendor/autoload.php';
 $client = new Google_Client();
-$client->setClientId('');
-$client->setClientSecret('');
+$client->setClientId('xxxxx');
+$client->setClientSecret('xxxxx');
 $client->setRedirectUri('http://localhost/WhatsapiAPI/controller/oauth2callback.php');
 $client->addScope('email');
 $client->addScope('profile');
