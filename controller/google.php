@@ -1,11 +1,11 @@
 <?php
-require_once 'vendor/autoload.php';
+require_once '../vendor/autoload.php';
 session_start();
 
 $client = new Google_Client();
-$client->setClientId('1080368790065-nc3j1se3skp5m0blf56en5dgfc6i7k4f.apps.googleusercontent.com');
-$client->setClientSecret('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');
-$client->setRedirectUri('http://localhost/WhatsapiAPI/oauth2callback.php');
+$client->setClientId('854576687113-rs51j39mn5ek8cefdnu0es2bb5tm15lo.apps.googleusercontent.com');
+$client->setClientSecret('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');
+$client->setRedirectUri('http://localhost/WhatsapiAPI/controller/oauth2callback.php');
 $client->addScope('email');
 $client->addScope('profile');
 

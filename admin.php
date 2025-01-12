@@ -1,6 +1,27 @@
 <?php
 require 'controller/connection.php';
 $id = $_SESSION['id_user'];
+if (!isset($_SESSION['id_user'])) {
+    // Jika belum login, beri alert dan redirect ke halaman login
+    setAlert("Akses Ditolak", "Login First!", "error");
+    header('Location: login');
+    exit();
+} else {
+    // Jika sudah login, cek apakah status user adalah false
+    if ($_SESSION['status'] !== "true") {
+        // Jika status false, beri alert dan redirect ke halaman logout atau nonaktif
+        setAlert("Akun Anda tidak aktif!", "Silahkan Aktivasi Terlebih Dahulu.", "error");
+        header('Location: controller/logout'); // Atau arahkan ke halaman lain sesuai logika aplikasi Anda
+        exit();
+    }else{
+        if($_SESSION['role'] !== 'admin'){
+            setAlert("Akses Ditolak", "Maaf $_SESSION[name] anda tidak memiliki akses!", "error");
+            header("Location: index");
+        }
+    }
+}
+
+
 ?>
 <!DOCTYPE html>
 <html>

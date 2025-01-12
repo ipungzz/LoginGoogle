@@ -150,7 +150,7 @@ if (isset($_POST['btnLogin'])) {
                                         </div>
                                         <button type="submit" name="btnLogin" class="btn btn-primary btn-user btn-block">Login</button>
                                         <hr>
-                                        <a href="google" class="btn btn-google btn-user btn-block">
+                                        <a href="controller/google" class="btn btn-google btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Login with Google
                                         </a>
                                         <a href="index" class="btn btn-facebook btn-user btn-block">
