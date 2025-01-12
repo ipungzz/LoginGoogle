@@ -33,14 +33,19 @@ if (isset($_GET['code'])) {
                     'name' => $data['name'],
                     'email' => $data['email'],
                     'status' => $data['status'],
+                    'role' => $data['role'],
                 ];
         setAlert("Login Berhasil!", "Berhasil Login.", "success");
-        header('Location: index'); // Pastikan ini adalah file yang tepat
+        if($_SESSION['role'] == 'admin'){
+            header("Location: admin");
+        }else{
+            header("Location: index");
+        }
         exit();
     } else {
         $token = mt_rand(100000, 999999);
         // Pengguna belum ada, tambahkan ke database
-        mysqli_query($conn, "INSERT INTO user (`role`,`username`,`name`,`password`,`email`,`notelp`, `token`, `token_expiration`, `status`) VALUES ('siswa','$token', '$name', '', '$username', '', '', '', 'true')");
+        mysqli_query($conn, "INSERT INTO user (`role`,`username`,`name`,`password`,`email`,`notelp`, `token`, `token_expiration`, `status`) VALUES ('user','$token', '$name', '', '$username', '', '', '', 'true')");
         if ($stmt->execute()) {
             // Simpan data pengguna di session
             $_SESSION['user_email'] = `$username`;

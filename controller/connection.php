@@ -68,6 +68,14 @@ function logout() {
     header("Location: ../login");
 }
 
+if (isset($_SESSION['id_user'])) {
+    function dataUser() {
+        global $conn;
+        $id_user = $_SESSION['id_user'];
+        return mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM user WHERE id_user = '$id_user'"));
+    }
+}
+
 function sendwa($nosend,$pesand)
 	{
         $url = "localhost:8080/postapi?";
@@ -226,7 +234,7 @@ function registerUser($data){
             $_SESSION = [
                 'username' => $data['username'],
             ];
-            $query = mysqli_query($conn, "INSERT INTO user (`username`,`name`,`password`,`email`,`notelp`, `token`, `token_expiration`, `status`) VALUES ('$username', '$nama_lengkap', '$password', '$email', '$nomer', '$token', '$token_expiration', 'false')");
+            $query = mysqli_query($conn, "INSERT INTO user (`role`,`username`,`name`,`password`,`email`,`notelp`, `token`, `token_expiration`, `status`) VALUES ('user','$username', '$nama_lengkap', '$password', '$email', '$nomer', '$token', '$token_expiration', 'false')");
             $pesan = "[Project] Please Activation Your Account
             
 Hey $nama_lengkap!

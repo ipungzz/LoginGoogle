@@ -5,10 +5,13 @@ require 'controller/connection.php';
 checkLoginAtLogin();
 if (isset($_POST['btnLogin'])) {
 	$username = $_POST['username'];
+    if(!is_numeric($username)){
+        header("Location: login");
+    }
 	$password = $_POST['password'];
 	$current_time = time();
 	$current_date = date("Y-m-d H:i:s", $current_time);
-
+    
 	// Set Cookie expiration for 1 month
     $cookie_expiration_time = $current_time + (30 * 24 * 60 * 60);
 
@@ -40,12 +43,19 @@ if (isset($_POST['btnLogin'])) {
                 $_SESSION = [
                     'id_user' => $data['id_user'],
                     'username' => $data['username'],
+                    'name' => $data['name'],
                     'status' => $data['status'],
+                    'role' => $data['role'],
                 ];
 
                 // Redirect ke halaman index setelah berhasil login
-                setAlert("Login Berhasil!", "Berhasil Login.", "success");
-                header("Location: index.php");
+                $query = mysqli_query($conn, "INSERT INTO aktifitas_login (`id_user`,`tanggal`) VALUES ('$_SESSION[id_user]', '$current_date')");
+                setAlert("Login Berhasil!", "Selamat Datang $_SESSION[name].", "success");
+                if($_SESSION['role'] == 'admin'){
+                    header("Location: admin");
+                }else{
+                    header("Location: index");
+                }
                 exit();
 
             } else {
@@ -88,7 +98,7 @@ if (isset($_POST['btnLogin'])) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Login</title>
+    <title>LoginPage</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">

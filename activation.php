@@ -10,6 +10,10 @@ $end_time = $current_time + $time_limit;
 require 'controller/connection.php';
 
 $user = $_GET['user'] ?? '';
+if(!is_numeric($user)){
+    header("Location: 404");
+    exit;
+}
 $query = mysqli_query($conn, "SELECT * FROM user WHERE username = '$user'");
 $select = mysqli_fetch_assoc($query);
 if ($select) {
@@ -39,7 +43,7 @@ $pesan = "[Project] Please Activation Your Account Hey $select[name]! Your Code:
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Forgot Password</title>
+    <title>Activation</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -80,7 +84,8 @@ $pesan = "[Project] Please Activation Your Account Hey $select[name]! Your Code:
                                                 name="number" placeholder="Enter Code">
                                         </div>
                                         <div class="form-group">
-                                           <label class="">Kirim Ulang OTP </label> <span id="countdown"></span>
+                                            <label class="">Kirim Ulang OTP </label> 
+                                            <span onclick=`resetCountdown()` id="countdown" style="cursor: pointer; color: blue;"></span>
                                         </div>
                                         <button type="submit" name="btnVerif" class="btn btn-primary btn-user btn-block">Verif</button>
                                     </form>
